@@ -1,53 +1,153 @@
-# Project VAJRA
+<div align="center">
 
-VAJRA is a defensive Windows endpoint-security prototype focused on evidence-first detection, vulnerability context, and provider-agnostic AI analysis.
+# ✦ VAJRA
 
-It is deliberately not marketed as "the world's most powerful antivirus". A first build cannot honestly promise to neutralize every attack. This repository is a credible foundation: transparent signals, auditable decisions, and response that stays under human control.
+### Defensive intelligence with receipts.
 
-## What is implemented
+**Evidence-led endpoint risk, detection, and response for Windows.**
 
-- Electron desktop shell for Windows x64 (packaged with `electron-builder`).
-- Dark "defensive intelligence" command center with overview, deep scan, threat stream, vulnerability intelligence, and AI routing views.
-- Bounded, read-only local folder scan with SHA-256 evidence and transparent filename/file-type heuristics.
-- Provider routing screen for OpenRouter, Anthropic Claude, Google Gemini, and OpenAI-compatible endpoints. Keys are stored in the OS user-data directory; Electron `safeStorage` encrypts them when the OS supports it.
-- Explicit containment boundary: the prototype never executes, deletes, kills, isolates, or reverses anything.
+[![Build Windows installer](https://github.com/mehulvyas911-eng/vajra-security/actions/workflows/windows-build.yml/badge.svg)](https://github.com/mehulvyas911-eng/vajra-security/actions/workflows/windows-build.yml)
+[![Latest release](https://img.shields.io/github/v/release/mehulvyas911-eng/vajra-security?display_name=tag&sort=semver&color=5CA98A)](https://github.com/mehulvyas911-eng/vajra-security/releases)
+[![Downloads](https://img.shields.io/github/downloads/mehulvyas911-eng/vajra-security/total?color=0B464F)](https://github.com/mehulvyas911-eng/vajra-security/releases)
+[![Windows](https://img.shields.io/badge/platform-Windows%20x64-0B464F)](https://github.com/mehulvyas911-eng/vajra-security/releases)
+[![Electron](https://img.shields.io/badge/runtime-Electron-47848F)](https://www.electronjs.org/)
+[![Security first](https://img.shields.io/badge/design-evidence--first-3E755F)](docs/SECURITY_BOUNDARIES.md)
 
-## Run locally
+[Download VAJRA](https://github.com/mehulvyas911-eng/vajra-security/releases/latest) · [Read the research brief](docs/VAJRA_RESEARCH_BRIEF.md) · [View the roadmap](#roadmap)
+
+</div>
+
+![VAJRA command center](docs/vajra-command-center.png)
+
+> **VAJRA is a working defensive prototype, not a certified antivirus or EDR.** It does not claim to stop every attack. It is built around a more useful promise: make security decisions explainable, evidence-backed, and controlled by humans.
+
+## Why VAJRA exists
+
+Endpoint security is no longer just a file-scanning problem. Living-off-the-land execution, identity and token abuse, software supply-chain risk, trusted cloud services, insider misuse, and vulnerability context all cross the boundary of a traditional antivirus verdict.
+
+VAJRA is designed as a correlation layer that brings those signals together without turning uncertainty into false confidence.
+
+```text
+┌──────────────────────┐     ┌──────────────────────┐
+│ Endpoint behaviour   │────▶│                      │
+│ process · script     │     │                      │
+├──────────────────────┤     │                      │
+│ Identity + cloud     │────▶│   VAJRA evidence     │──────▶  Explainable decision
+│ user · token · SaaS  │     │   and response       │        with receipts
+├──────────────────────┤     │                      │
+│ Vulnerability context│────▶│                      │
+│ CVE · KEV · EPSS     │     └──────────────────────┘
+└──────────────────────┘
+```
+
+## What is in the 0.1 prototype
+
+| Surface | Current capability |
+|---|---|
+| Command center | Risk posture, protection layers, latest signals, and audit-oriented status |
+| Deep scan | Bounded, read-only local folder scan with transparent heuristics |
+| Evidence | SHA-256 hashes, paths, signal reasons, severity, and review state |
+| Threat stream | Evidence ledger designed for future containment workflows |
+| Vulnerability intel | Separate CVE, NVD, CISA KEV, CVSS, EPSS, and local-evidence concepts |
+| AI routing | OpenRouter, Anthropic Claude, Google Gemini, and OpenAI-compatible endpoints |
+| Safety boundary | No execution, deletion, killing, isolation, or arbitrary malware reversal |
+
+## Product principles
+
+### Observe before you act
+
+Preserve hashes, timestamps, provenance, detector version, confidence, and collection gaps before high-impact response. A detection without evidence is a notification; a detection with evidence can become a case.
+
+### Keep signals separate
+
+A CVE identifier is not local exposure. KEV is known-exploitation context. EPSS is a forecast. CVSS communicates severity. Local inventory, version, configuration, reachability, patch state, and telemetry decide what is actionable.
+
+### Human-approved response
+
+Quarantine, isolation, deletion, reboot, rollback, and broad policy changes can cause operational or forensic harm. VAJRA’s direction is reversible, scoped, rate-limited, logged response — with human approval for high-impact actions.
+
+### AI as an analyst, not an authority
+
+Provider-agnostic routing is useful only when the model receives the minimum necessary evidence, cites its sources, exposes uncertainty, and cannot silently turn a recommendation into a destructive action.
+
+## Quick start
 
 ```bash
 npm install
 npm start
 ```
 
-## Build a Windows installer
+The app runs as an Electron desktop window. Choose **Deep scan**, select a folder, and run the bounded read-only scan.
 
-Windows `.exe` artifacts must be produced on Windows (or a Windows runner). From a Windows machine:
+## Download the Windows installer
+
+The current unsigned Windows x64 installer is available from the [latest GitHub release](https://github.com/mehulvyas911-eng/vajra-security/releases/latest).
+
+To build it yourself on Windows or through GitHub Actions:
 
 ```bash
 npm ci
 npm run dist:win
 ```
 
-The NSIS installer is written to `release/`. Alternatively, run the included GitHub Actions workflow **Build Windows installer**, which uploads `vajra-windows-installer` as a build artifact.
+The installer is written to `release/`. The repository includes [`.github/workflows/windows-build.yml`](.github/workflows/windows-build.yml), which uploads the installer as a workflow artifact. The `0.1.0` release also includes `SHA256SUMS.txt`.
 
-The sandbox build (`npm run dist:dir`) produces a Linux unpacked Electron app only. It is not a Windows executable.
-
-## Before distributing
-
-This is not a certified antivirus or EDR. Do not deploy it as a security control without:
-
-1. An Authenticode code-signing certificate and signed releases.
-2. Independent threat-model, privacy, and driver/service review.
-3. Testing against benign and malicious validation corpora, including false-positive measurement.
-4. A documented update channel with signed, verifiable updates.
-5. Clear data-handling terms for any AI provider integration.
+> Windows SmartScreen may warn because the prototype release is not Authenticode-signed yet.
 
 ## Architecture direction
 
-Phase 1 stays in standard-user mode: AMSI for supported content scanning, permitted Windows Event Log subscriptions, application-defined ETW with bounded queues and loss metrics, and optional centrally managed Sysmon ingestion. Phase 2 adds enterprise configuration and cloud/identity context. Privileged telemetry and any kernel component come only after a documented coverage requirement, with separate review and Microsoft-compliant signing.
+```mermaid
+flowchart LR
+  A[Windows user-mode collector] --> B[Normalized evidence model]
+  B --> C[Explainable detections]
+  B --> D[CVE / NVD / KEV / CVSS / EPSS context]
+  C --> E[Human approval gate]
+  D --> E
+  E --> F[Scoped reversible response]
+  B --> G[Redacted AI routing]
+```
 
-Read [the research and product brief](docs/VAJRA_RESEARCH_BRIEF.md) for the evidence behind these choices and [the security boundaries](docs/SECURITY_BOUNDARIES.md) for the current limits.
+**Phase 1:** standard-user collector, AMSI/Event Log/ETW integrations, bounded queues, loss metrics, explainable detections, vulnerability context, safe sample handling, and audit logging.
+
+**Phase 2:** administrator-managed enrollment, optional Sysmon ingestion, fleet policy, cloud identity/SaaS/DNS/proxy context, SBOM and supplier lineage.
+
+**Phase 3:** privileged telemetry and advanced response only where a documented coverage gap remains.
+
+**Phase 4:** kernel or driver capability only if necessary, with separate threat modeling, Microsoft-compliant signing, compatibility testing, rollback safety, and independent review.
+
+## Roadmap
+
+- [x] Electron command center and Windows packaging path
+- [x] Bounded read-only scanner with SHA-256 evidence
+- [x] AI provider routing UI
+- [x] CVE / KEV / EPSS product model
+- [x] Evidence-first security boundaries and research brief
+- [ ] Windows Event Log and AMSI adapters
+- [ ] ETW collector with bounded queues and event-loss metrics
+- [ ] Signed update channel and Authenticode release
+- [ ] Local SBOM/package inventory and applicability matching
+- [ ] Pilot benchmark harness for false positives, triage time, and forensic completeness
+- [ ] Administrator-managed enrollment and scoped response service
 
 ## Responsible use
 
-VAJRA is defensive software. Contributions must not add offensive capability, credential theft, evasion tooling, or destructive autonomous response. High-impact actions require policy, evidence preservation, rollback where possible, and human approval.
+VAJRA is defensive software. Do not use it to develop malware, steal credentials, evade security controls, or automate destructive response. Contributions must preserve evidence, minimize privilege, constrain blast radius, and keep high-impact actions under explicit policy and human approval.
+
+Before deploying beyond a prototype, complete an independent threat model, privacy review, code-signing setup, update-channel review, benign-corpus testing, false-positive measurement, and Windows compatibility testing.
+
+## Documentation
+
+- [Research and product brief](docs/VAJRA_RESEARCH_BRIEF.md) — endpoint gaps, CVE intelligence, Windows interfaces, response safety, and positioning
+- [Marketing and go-to-market plan](docs/MARKETING_PLAN.md) — wedge, proof metrics, channels, and claims to avoid
+- [Security boundaries](docs/SECURITY_BOUNDARIES.md) — current limits and safe architecture direction
+- [Release v0.1.0](https://github.com/mehulvyas911-eng/vajra-security/releases/tag/v0.1.0) — installer and checksum
+
+## License
+
+The repository is public for transparency and collaboration. A permissive open-source license has not yet been selected; until one is added, all rights are reserved by the copyright holder.
+
+<div align="center">
+
+**No hype. No invisible decisions. No destructive autonomy by default.**
+
+</div>
