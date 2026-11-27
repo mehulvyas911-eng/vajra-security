@@ -1,22 +1,52 @@
 {
   "name": "vajra-security",
   "version": "0.1.0",
-  "description": "Project VAJRA — defensive Windows endpoint security prototype",
+  "description": "Project VAJRA \u2014 defensive Windows endpoint security prototype",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
     "dev": "electron .",
-    "dist:win": "electron-builder --win nsis --x64",
+    "dist:win": "electron-builder --win nsis --x64 --publish never",
     "dist:dir": "electron-builder --dir"
   },
   "build": {
     "appId": "com.vajra.security",
     "productName": "VAJRA Security",
     "artifactName": "VAJRA-Setup-${version}-${arch}.${ext}",
-    "directories": { "output": "release" },
-    "files": ["src/**/*", "assets/**/*", "package.json"],
-    "win": { "target": [{"target":"nsis","arch":["x64"]}], "requestedExecutionLevel": "asInvoker" },
-    "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true }
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
   },
-  "devDependencies": { "electron": "^36.3.2", "electron-builder": "^26.0.12" }
+  "devDependencies": {
+    "electron": "^36.3.2",
+    "electron-builder": "^26.0.12"
+  },
+  "author": "Mehul Vyas",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mehulvyas911-eng/vajra-security.git"
+  }
 }
