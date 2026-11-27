@@ -8,7 +8,6 @@
 
 [![Build Windows installer](https://github.com/mehulvyas911-eng/vajra-security/actions/workflows/windows-build.yml/badge.svg)](https://github.com/mehulvyas911-eng/vajra-security/actions/workflows/windows-build.yml)
 [![Latest release](https://img.shields.io/github/v/release/mehulvyas911-eng/vajra-security?display_name=tag&sort=semver&color=5CA98A)](https://github.com/mehulvyas911-eng/vajra-security/releases)
-[![Downloads](https://img.shields.io/github/downloads/mehulvyas911-eng/vajra-security/total?color=0B464F)](https://github.com/mehulvyas911-eng/vajra-security/releases)
 [![Launch goal](https://img.shields.io/badge/launch%20goal-4.3K%20downloads-5CA98A)](https://github.com/mehulvyas911-eng/vajra-security/releases)
 [![Windows](https://img.shields.io/badge/platform-Windows%20x64-0B464F)](https://github.com/mehulvyas911-eng/vajra-security/releases)
 [![Electron](https://img.shields.io/badge/runtime-Electron-47848F)](https://www.electronjs.org/)
@@ -22,7 +21,7 @@
 
 > **VAJRA is a working defensive prototype, not a certified antivirus or EDR.** It does not claim to stop every attack. It is built around a more useful promise: make security decisions explainable, evidence-backed, and controlled by humans.
 
-> **Launch goal:** help us reach **4,300 genuine downloads** of the Windows prototype. The live Downloads badge above is linked directly to GitHub and reflects the actual count.
+> **Launch goal:** help us reach **4,300 genuine downloads** of the Windows prototype. The goal badge is aspirational; release assets and download activity remain visible on GitHub.
 
 ## Why VAJRA exists
 
