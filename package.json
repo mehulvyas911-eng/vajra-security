@@ -1,0 +1,22 @@
+{
+  "name": "vajra-security",
+  "version": "0.1.0",
+  "description": "Project VAJRA — defensive Windows endpoint security prototype",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "dist:win": "electron-builder --win nsis --x64",
+    "dist:dir": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "com.vajra.security",
+    "productName": "VAJRA Security",
+    "artifactName": "VAJRA-Setup-${version}-${arch}.${ext}",
+    "directories": { "output": "release" },
+    "files": ["src/**/*", "assets/**/*", "package.json"],
+    "win": { "target": [{"target":"nsis","arch":["x64"]}], "requestedExecutionLevel": "asInvoker" },
+    "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true }
+  },
+  "devDependencies": { "electron": "^36.3.2", "electron-builder": "^26.0.12" }
+}
