@@ -13,7 +13,17 @@
 [![Electron](https://img.shields.io/badge/runtime-Electron-47848F)](https://www.electronjs.org/)
 [![Security first](https://img.shields.io/badge/design-evidence--first-3E755F)](docs/SECURITY_BOUNDARIES.md)
 
-[Download VAJRA](https://github.com/mehulvyas911-eng/vajra-security/releases/latest) · [Read the research brief](docs/VAJRA_RESEARCH_BRIEF.md) · [View the roadmap](#roadmap)
+[Download VAJRA](https://github.com/mehulvyas911-eng/vajra-security/releases/latest) · [Star the repository](https://github.com/mehulvyas911-eng/vajra-security) · [Read the research brief](docs/VAJRA_RESEARCH_BRIEF.md) · [View the roadmap](#roadmap)
+
+</div>
+
+<div align="center">
+
+### Join the first 4,300 defenders shaping VAJRA
+
+Try the Windows prototype, tell us what your endpoint workflow is missing, and help turn explainable security into a community-built product.
+
+**[Get the installer →](https://github.com/mehulvyas911-eng/vajra-security/releases/latest)** &nbsp; **[Open an issue →](https://github.com/mehulvyas911-eng/vajra-security/issues/new)** &nbsp; **[Start a discussion →](https://github.com/mehulvyas911-eng/vajra-security/discussions/new)**
 
 </div>
 
@@ -21,7 +31,7 @@
 
 > **VAJRA is a working defensive prototype, not a certified antivirus or EDR.** It does not claim to stop every attack. It is built around a more useful promise: make security decisions explainable, evidence-backed, and controlled by humans.
 
-> **Launch goal:** help us reach **4,300 genuine downloads** of the Windows prototype. The goal badge is aspirational; release assets and download activity remain visible on GitHub.
+> **Launch goal:** help us reach **4,300 genuine downloads** of the Windows prototype. Every install, issue, test result, and thoughtful review helps shape the next release.
 
 ## Why VAJRA exists
 
@@ -71,6 +81,12 @@ Quarantine, isolation, deletion, reboot, rollback, and broad policy changes can 
 ### AI as an analyst, not an authority
 
 Provider-agnostic routing is useful only when the model receives the minimum necessary evidence, cites its sources, exposes uncertainty, and cannot silently turn a recommendation into a destructive action.
+
+## How you can help
+
+VAJRA is early, which means practical feedback has unusually high leverage. You can help by installing the prototype on a test Windows machine, starring the repository if the direction is useful, opening an issue with your endpoint-security workflow, or contributing a benign test case and expected result.
+
+Please do not upload malware, secrets, private logs, credentials, or sensitive customer data to issues or discussions. Use sanitized evidence and follow the repository’s responsible-use boundaries.
 
 ## Quick start
 
